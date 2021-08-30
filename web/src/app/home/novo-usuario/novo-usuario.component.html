@@ -1,41 +1,91 @@
-<h4 class="text-center"> Registre-se e mostre seu pet ao mundo!</h4>
+<h4 class="text-center">Registre-se e mostre seu pet ao mundo!</h4>
 
-<form class="form mt-4" ngSubmit="" #dssddd>
+<form
+  class="form mt-4"
+  (submit)="cadastrar()"
+  #dssddd
+  [formGroup]="novoUsuarioForm"
+>
   <div class="form-group">
     <input
-    type="text"
-    class="form-control"
-    placeholder="E-mail"
+      type="text"
+      class="form-control"
+      placeholder="E-mail"
+      formControlName="email"
+    />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.required &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="Email obrigatório"
     >
+    </app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.email &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail no formato incorreto"
+    >
+    </app-mensagem>
   </div>
   <div class="form-group">
     <input
-    type="text"
-    class="form-control"
-    placeholder="Nome Completo"
-    >
+      type="text"
+      class="form-control"
+      placeholder="Nome Completo"
+      formControlName="fullName"
+    />
+
+    <app-mensagem
+    *ngIf="
+      novoUsuarioForm.get('fullName')?.errors &&
+      novoUsuarioForm.get('fullName')?.touched
+    "
+    mensagem="Nome incorreto"
+  >
+  </app-mensagem>
   </div>
   <div class="form-group">
     <input
-    type="text"
-    class="form-control"
-    placeholder="Usuário"
-    >
+      type="text"
+      class="form-control"
+      placeholder="Usuário"
+      formControlName="userName"
+    />
+    <app-mensagem
+    *ngIf="
+      novoUsuarioForm.get('userName')?.errors?.minusculo &&
+      novoUsuarioForm.get('userName')?.touched
+    "
+    mensagem="Usuário deve ser letra minuscula"
+  >
+  </app-mensagem>
+    <app-mensagem
+    *ngIf="
+      novoUsuarioForm.get('userName')?.errors?.usuarioExistente &&
+      novoUsuarioForm.get('userName')?.touched
+    "
+    mensagem="Usuário já existe"
+  >
+  </app-mensagem>
   </div>
   <div class="form-group">
     <input
-    type="password"
-    class="form-control"
-    placeholder="Senha"
-    >
+      type="password"
+      class="form-control"
+      placeholder="Senha"
+      formControlName="password"
+    />
   </div>
   <button
-  type="submit"
-  class="btn btn-primary btn-block form-control"
-  [disabled]="dssddd.invalid"
->
-  Cadastro
-</button>
+    type="submit"
+    class="btn btn-primary btn-block form-control"
+    [disabled]="dssddd.invalid"
+  >
+    Cadastro
+  </button>
 </form>
 
-<p> Já é usuário ? <a [routerLink]="['']">Faça login</a></p>
+<p>Já é usuário ? <a [routerLink]="['']">Faça login</a></p>
