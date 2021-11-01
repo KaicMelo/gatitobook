@@ -1,6 +1,6 @@
 export interface NovoUsuario {
   userName: string;
   email: string;
-  afullName: string;
+  fullName: string;
   password: string;
 }
